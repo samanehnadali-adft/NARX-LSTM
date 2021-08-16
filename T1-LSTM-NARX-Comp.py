@@ -1,13 +1,5 @@
-#-------------------------------------------------------------------------------
-# Name:        module1
-# Purpose:
-#
-# Author:      ADFT014-RD
-#
-# Created:     16/08/2021
-# Copyright:   (c) ADFT014-RD 2021
-# Licence:     <your licence>
-#-------------------------------------------------------------------------------
+    
+#-------------------------------Add libraries------------------------------------------------
 import warnings
 warnings.filterwarnings('ignore')
 import pandas as pd
@@ -24,6 +16,7 @@ from tensorflow.keras.layers import Dense, LSTM, BatchNormalization, Flatten, Dr
 from fireTS.models import NARX
 from datetime import datetime
 
+#---------------------Read Files -------------------------------------------------
 df = pd.read_csv(r'C:\Users\ADFT014-RD\Documents\PREDICTION\TEMPERATURE-DATA -2.csv')
 
 print(df.head())
@@ -62,14 +55,10 @@ y_col = 'Setpoint'
 X = np.array(df_train[X_cols])
 y = np.vstack(df_train[y_col])
 vals = np.concatenate((y, X), axis = 1)
-##vals_reframed = series_to_supervised(vals)
-##cols_filtered = [c for c in vals_reframed.columns if c.endswith('(t-1)')]
-##vals_reframed_arr = vals_reframed[cols_filtered].values
-##X = vals_reframed_arr[:,1:]
-##y = vals_reframed_arr[:,:1]
+
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size = 0.4, shuffle = False)
 
-
+#------------------Plotting -----------------------------------------------------------------------
 def plot_pred(pred, act, x):
     datelis = []
     for i in range(x.shape[0]):
